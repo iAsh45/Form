@@ -1,0 +1,219 @@
+<div *ngIf="iform">
+  <div class="container mt-3">
+    <div class="row mt-3">
+      <div class="col-md-6 offset-md-3">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input
+              formControlName="firstName"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && registerForm.controls['firstName'].errors
+              }"
+              type="text"
+              class="form-control"
+            />
+            <div
+              *ngIf="submitted && registerForm.controls['firstName'].errors"
+              class="text-danger"
+            >
+              <div
+                *ngIf="registerForm.controls['firstName'].errors['required']"
+              >
+                First Name is Required
+              </div>
+              <div
+                *ngIf="registerForm.controls['firstName'].errors['minlength']"
+              >
+                First Name should be atleast 3 characters
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input
+              formControlName="lastName"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && registerForm.controls['lastName'].errors
+              }"
+              type="text"
+              class="form-control"
+            />
+            <div class="text-danger">
+              <div
+                *ngIf="submitted && registerForm.controls['lastName'].errors"
+              >
+                <div
+                  *ngIf="registerForm.controls['lastName'].errors['required']"
+                >
+                  Last Name is Required
+                </div>
+                <div
+                  *ngIf="registerForm.controls['lastName'].errors?.['cannotContainSpace']"
+                >
+                  Space not allowed
+                </div>
+                <span *ngIf="registerForm.controls['lastName'].touched">
+                  Required
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid': submitted && registerForm.controls['email'].errors
+              }"
+              type="text"
+              class="form-control"
+            />
+            <div
+              *ngIf="submitted && registerForm.controls['email'].errors"
+              class="text-danger"
+            >
+              <div *ngIf="registerForm.controls['email'].errors['required']">
+                Email is Required
+              </div>
+              <div *ngIf="registerForm.controls['email'].errors['pattern']">
+                Please Enter Vaild Email ID
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <div>
+              <input
+                formControlName="password"
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-control"
+              />
+              <div class="ipassicon">
+                <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                  {{ showPassword ? "visibility_off" : "visibility" }}
+                </mat-icon>
+              </div>
+            </div>
+            <div
+              *ngIf="submitted && registerForm.controls['password'].errors"
+              class="text-danger"
+            >
+              <div *ngIf="registerForm.controls['password'].errors['required']">
+                Password is Required
+              </div>
+              <div
+                *ngIf="registerForm.controls['password'].errors['minlength']"
+              >
+                Password should be atleast 4 characters
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input
+              type="number"
+              formControlName="phone"
+              [ngClass]="{
+                'is-invalid': submitted && registerForm.controls['phone'].errors
+              }"
+              class="form-control"
+            />
+            <div
+              *ngIf="submitted && registerForm.controls['phone'].errors"
+              class="text-danger"
+            >
+              <div *ngIf="registerForm.controls['phone'].errors['required']">
+                Phone number is Required
+              </div>
+              <div *ngIf="registerForm.controls['phone'].errors['pattern']">
+                Enter Valid Phone number
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pinCode">Pin Code:</label>
+            <input
+              formControlName="pinCode"
+              [ngClass]="{
+                'is-invalid':
+                  submitted && registerForm.controls['pinCode'].errors
+              }"
+              type="number"
+              [(ngModel)]="ipinNo"
+              class="form-control"
+              (ngModelChange)="ipinFun(ipinNo)"
+            />
+            <div class="text-danger">
+              <div *ngIf="submitted && registerForm.controls['pinCode'].errors">
+                <div
+                  *ngIf="registerForm.controls['pinCode'].errors['required']"
+                >
+                  Pine code is Required
+                </div>
+                <div
+                  *ngIf="registerForm.controls['pinCode'].errors['ipinError']"
+                >
+                  Error
+                </div>
+              </div>
+            </div>
+            <div [ngStyle]="{ color: ipcscolor }">Success</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-success">Submit</button>
+            </div>
+            <div class="col">
+              <button class="btn btn-danger" (click)="onReset()">Reset</button>
+            </div>
+            <div class="col">
+              <button
+                class="btn btn-primary"
+                routerLink="/formData"
+                [disabled]="!registerForm.valid"
+                (click)="ishowFD()"
+              >
+                Show
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="iDform">
+  <div class="paper">
+    <div class="container text-center">
+      <button class="btn ibtn btn-primary" (click)="iBack()">Back</button>
+    </div>
+    <div class="lines">
+      <div class="text" contenteditable spellcheck="false">
+        <div class="container text-center">Basic Info</div>
+        <br /><br />
+        First Name :
+        {{ registerForm.controls["firstName"].value }}
+        <br />
+        Email :
+        {{ registerForm.controls["lastName"].value }}
+        <br />
+        Password :
+        {{ registerForm.controls["password"].value }}
+        <br />
+        Phone :
+        {{ registerForm.controls["phone"].value }}
+        <br />
+        Pincode :
+        {{ registerForm.controls["pinCode"].value }}
+        <br />
+      </div>
+    </div>
+    <!-- <div class="holes hole-top"></div>
+        <div class="holes hole-middle"></div>
+        <div class="holes hole-bottom"></div> -->
+  </div>
+</div>

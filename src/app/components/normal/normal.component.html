@@ -1,0 +1,18 @@
+<div class="container text-center mt-3">
+  <ng-container *ngFor="let data of idata">
+    <table>
+      <tr *ngIf="data.id > 2">
+        <td>{{ data.name }}</td>
+      </tr>
+    </table>
+  </ng-container>
+</div>
+<br />
+<hr />
+<br />
+<div class="container text-center">
+  <ng-container *ngTemplateOutlet="template; context: obj"> </ng-container>
+  <ng-template #template let-ob="data">
+    <p>Yo {{ ob }}</p>
+  </ng-template>
+</div>
