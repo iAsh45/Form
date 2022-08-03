@@ -24,7 +24,7 @@ export class GetFormComponent implements OnInit {
   ipasscode: string = 'password';
   ipinNo: any;
   ipinStatus: any;
-  ipinErrorr: any;
+  // ipinErrorr: any;
   public showPassword: boolean = false;
   ipcscolor: string = 'white';
   iform: boolean = true;
@@ -101,6 +101,7 @@ export class GetFormComponent implements OnInit {
         this.ipcscolor = 'white';
       } else if (this.ipinStatus == 'Success') {
         console.log('S');
+        this.registerForm.controls['pinCode'].setErrors(null);
         this.ipcscolor = 'green';
       }
     });
