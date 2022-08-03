@@ -160,9 +160,11 @@
                 </div>
               </div>
             </div>
-            <div [ngStyle]="{ color: ipcscolor }">Success</div>
+            <ng-container *ngIf="ipcscolor != 'white'">
+              <div [ngStyle]="{ color: ipcscolor }">Success</div>
+            </ng-container>
           </div>
-          <div class="row">
+          <div class="row mt-3">
             <div class="col">
               <button class="btn btn-success">Submit</button>
             </div>
@@ -174,7 +176,7 @@
                 class="btn btn-primary"
                 routerLink="/formData"
                 [disabled]="!registerForm.valid"
-                (click)="ishowFD()"
+                (click)="iShow()"
               >
                 Show
               </button>
@@ -183,37 +185,5 @@
         </form>
       </div>
     </div>
-  </div>
-</div>
-
-<div *ngIf="iDform">
-  <div class="paper">
-    <div class="container text-center">
-      <button class="btn ibtn btn-primary" (click)="iBack()">Back</button>
-    </div>
-    <div class="lines">
-      <div class="text" contenteditable spellcheck="false">
-        <div class="container text-center">Basic Info</div>
-        <br /><br />
-        First Name :
-        {{ registerForm.controls["firstName"].value }}
-        <br />
-        Email :
-        {{ registerForm.controls["lastName"].value }}
-        <br />
-        Password :
-        {{ registerForm.controls["password"].value }}
-        <br />
-        Phone :
-        {{ registerForm.controls["phone"].value }}
-        <br />
-        Pincode :
-        {{ registerForm.controls["pinCode"].value }}
-        <br />
-      </div>
-    </div>
-    <!-- <div class="holes hole-top"></div>
-        <div class="holes hole-middle"></div>
-        <div class="holes hole-bottom"></div> -->
   </div>
 </div>

@@ -12,16 +12,6 @@ const routes: Routes = [
     path: 'iform',
     component: GetFormComponent,
   },
-  {
-    path: 'test',
-    loadChildren: () =>
-      import('./test-form/test-form.module').then((m) => m.TestFormModule),
-  },
-  {
-    path: 'itest',
-    loadChildren: () =>
-      import('./itest/itest.module').then((m) => m.ItestModule),
-  },
 ];
 
 const routerOption: ExtraOptions = {

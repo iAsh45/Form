@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-show-form',
@@ -8,7 +9,7 @@ import { UserService } from 'src/app/user.service';
 })
 export class ShowFormComponent implements OnInit {
   ifdata: any;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private _location: Location) {}
 
   ngOnInit(): void {
     this.userService.receivemessageF().subscribe((data) => {
@@ -16,5 +17,14 @@ export class ShowFormComponent implements OnInit {
       this.ifdata = data;
       console.log(this.ifdata.fName);
     });
+  }
+
+  backClicked() {
+    this._location.back();
+    const backdata = {
+      mForm: 'true',
+      sForm: 'false',
+    };
+    this.userService.sendmessageGB(backdata);
   }
 }

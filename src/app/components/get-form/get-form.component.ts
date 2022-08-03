@@ -30,6 +30,7 @@ export class GetFormComponent implements OnInit {
   iform: boolean = true;
   iDform: boolean = false;
   iFDi: any;
+  igbData: any;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.registerForm = this.fb.group({
@@ -59,6 +60,11 @@ export class GetFormComponent implements OnInit {
 
   ngOnInit(): void {
     //Value change
+    this.userService.receivemessageGB().subscribe((data) => {
+      this.igbData = data;
+      this.iform = this.igbData.mForm;
+      this.iDform = this.igbData.sForm;
+    });
   }
 
   onSubmit() {
@@ -84,6 +90,7 @@ export class GetFormComponent implements OnInit {
   }
 
   onReset() {
+    this.ipcscolor = 'white';
     this.submitted = false;
     this.registerForm.reset();
   }
@@ -128,12 +135,5 @@ export class GetFormComponent implements OnInit {
   iShow() {
     this.iform = false;
     this.iDform = true;
-  }
-  iBack() {
-    this.iform = true;
-    this.iDform = false;
-  }
-  ishowFD() {
-    this.iform = false;
   }
 }

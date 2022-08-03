@@ -8,6 +8,7 @@ import { pinCode } from './interface/pincode-i';
 })
 export class UserService {
   public iformData = new Subject<string>();
+  public ibackData = new Subject<string>();
 
   constructor(private http: HttpClient) {}
 
@@ -26,5 +27,11 @@ export class UserService {
   }
   receivemessageF(): Observable<string> {
     return this.iformData.asObservable();
+  }
+  sendmessageGB(message: any) {
+    this.ibackData.next(message);
+  }
+  receivemessageGB(): Observable<any> {
+    return this.ibackData.asObservable();
   }
 }
