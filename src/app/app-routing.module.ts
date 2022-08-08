@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'iform',
     component: GetFormComponent,
   },
+  {
+    path: '',
+    redirectTo: '/iform',
+    pathMatch: 'full',
+  },
 ];
 
 const routerOption: ExtraOptions = {

@@ -174,8 +174,8 @@
             <div class="col">
               <button
                 class="btn btn-primary"
-                routerLink="/formData"
                 [disabled]="!registerForm.valid"
+                (click)="iShow()"
               >
                 Show
               </button>

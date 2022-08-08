@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { pinCode } from 'src/app/interface/pincode-i';
 import { UserService } from 'src/app/user.service';
 
@@ -30,7 +31,11 @@ export class GetFormComponent implements OnInit {
   iFDi: any;
   igbData: any;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private route: Router
+  ) {
     this.registerForm = this.fb.group({
       firstName: new FormControl('', [
         Validators.required,
@@ -65,6 +70,13 @@ export class GetFormComponent implements OnInit {
       return;
     }
 
+    this.setLocalStorage();
+
+    alert('Success');
+    console.log(this.registerForm.value);
+  }
+
+  setLocalStorage() {
     this.iFDi = {
       fName: this.registerForm.controls['firstName'].value,
       lName: this.registerForm.controls['lastName'].value,
@@ -75,9 +87,6 @@ export class GetFormComponent implements OnInit {
     };
 
     localStorage.setItem('iForm', JSON.stringify(this.iFDi));
-
-    alert('Success');
-    console.log(this.registerForm.value);
   }
 
   onReset() {
@@ -116,9 +125,13 @@ export class GetFormComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  i = 1;
-  // iShow() {
-  //   this.iform = false;
-  //   this.iDform = true;
-  // }
+  iShow() {
+    this.setLocalStorage();
+
+    if (localStorage.getItem('iForm')) {
+      this.route.navigate(['/formData']);
+    } else if (!localStorage.getItem('iForm')) {
+      alert('Hit Submit First');
+    }
+  }
 }
