@@ -5,9 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { formData } from 'src/app/formcd';
 import { pinCode } from 'src/app/interface/pincode-i';
-import { UsernameValidator } from 'src/app/pin.validator';
 import { UserService } from 'src/app/user.service';
 
 @Component({
@@ -58,14 +56,7 @@ export class GetFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    //Value change
-    this.userService.receivemessageGB().subscribe((data) => {
-      this.igbData = data;
-      this.iform = this.igbData.mForm;
-      this.iDform = this.igbData.sForm;
-    });
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.submitted = true;
@@ -83,7 +74,7 @@ export class GetFormComponent implements OnInit {
       pincode: this.registerForm.controls['pinCode'].value,
     };
 
-    this.userService.sendmessageF(this.iFDi);
+    localStorage.setItem('iForm', JSON.stringify(this.iFDi));
 
     alert('Success');
     console.log(this.registerForm.value);
@@ -115,12 +106,6 @@ export class GetFormComponent implements OnInit {
   }
 
   icheckPin(control: FormControl) {
-    // if (this.ipinError == true) {
-    //   return { ipinError: true };
-    // } else if (this.ipinSuccess == true) {
-    //   return { ipinSuccess: true };
-    // }
-    // return null;
     if (this.ipinStatus == 'Error') {
       return { ipinError: true };
     }
@@ -132,8 +117,8 @@ export class GetFormComponent implements OnInit {
   }
 
   i = 1;
-  iShow() {
-    this.iform = false;
-    this.iDform = true;
-  }
+  // iShow() {
+  //   this.iform = false;
+  //   this.iDform = true;
+  // }
 }

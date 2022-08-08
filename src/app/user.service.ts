@@ -21,17 +21,4 @@ export class UserService {
       `https://api.postalpincode.in/pincode/${pin}`
     );
   }
-
-  sendmessageF(message: string) {
-    this.iformData.next(message);
-  }
-  receivemessageF(): Observable<string> {
-    return this.iformData.asObservable();
-  }
-  sendmessageGB(message: any) {
-    this.ibackData.next(message);
-  }
-  receivemessageGB(): Observable<any> {
-    return this.ibackData.asObservable();
-  }
 }

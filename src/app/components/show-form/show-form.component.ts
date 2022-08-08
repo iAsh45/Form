@@ -9,22 +9,15 @@ import { Location } from '@angular/common';
 })
 export class ShowFormComponent implements OnInit {
   ifdata: any;
+  ilsdata: any;
   constructor(private userService: UserService, private _location: Location) {}
 
   ngOnInit(): void {
-    this.userService.receivemessageF().subscribe((data) => {
-      console.log('Show Form');
-      this.ifdata = data;
-      console.log(this.ifdata.fName);
-    });
+    this.ilsdata = localStorage.getItem('iForm');
+    this.ifdata = JSON.parse(this.ilsdata);
   }
 
   backClicked() {
     this._location.back();
-    const backdata = {
-      mForm: 'true',
-      sForm: 'false',
-    };
-    this.userService.sendmessageGB(backdata);
   }
 }
